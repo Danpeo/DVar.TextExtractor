@@ -1,0 +1,78 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:DVar.TextExtractor.Gui.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="720"
+        x:Class="DVar.TextExtractor.Gui.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/46_nihongo_icon-copy.ico"
+        Title="DVar.TextExtractor.Gui"
+        TransparencyLevelHint="AcrylicBlur"
+        Background="Transparent"
+        ExtendClientAreaToDecorationsHint="True">
+
+    <Grid RowDefinitions="Auto,*,*">
+
+        <Panel Grid.Row="0" Margin="40">
+            <StackPanel Orientation="Horizontal">
+
+                <Button Margin="10 0 10 0" HorizontalAlignment="Left" VerticalAlignment="Top"
+                        Command="{Binding OpenImageCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <PathIcon Data="{StaticResource folder_open_regular}" />
+                        <TextBlock Margin="5">Open Image</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button Margin="10 0 10 0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Command="{Binding ExtractTextCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <PathIcon Data="{StaticResource image_alt_text_regular}" />
+                        <TextBlock Margin="5" FontWeight="Bold">Extract Text</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button Margin="10 0 10 0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Command="{Binding CopyTextCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <PathIcon Data="{StaticResource clipboard_text_regular}" />
+                        <TextBlock Margin="5">Copy Text</TextBlock>
+                    </StackPanel>
+                </Button>
+
+                <StackPanel Orientation="Horizontal" Margin="20 0 0 0">
+                    <PathIcon Data="{StaticResource local_language_regular}" />
+                    <ComboBox Margin="10 0 10 0"
+                              HorizontalAlignment="Left"
+                              VerticalAlignment="Top"
+                              Name="LangDataComboBox"
+                              ItemsSource="{Binding LangDatas}"
+                              SelectedItem="{Binding SelectedLang, Mode=TwoWay}" />
+                </StackPanel>
+            </StackPanel>
+        </Panel>
+
+        <Panel Grid.Row="1" Margin="20">
+            <Image HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                   Source="{Binding Image}" Stretch="Uniform" />
+        </Panel>
+
+        <ScrollViewer Grid.Row="2" Margin="20 10 20 20" VerticalScrollBarVisibility="Auto">
+            <Border BorderBrush="PaleVioletRed"
+                    BorderThickness="3"
+                    Background="{StaticResource DvarDark}"
+                    CornerRadius="15">
+                <SelectableTextBlock
+                    Margin="20 10 20 10"
+                    Text="{Binding ExtractedText}"
+                    FontSize="16"
+                    Padding="5" />
+            </Border>
+        </ScrollViewer>
+    </Grid>
+
+
+</Window>
